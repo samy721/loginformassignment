@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            display: flex;
+            width: 75vw;
+            border: 1px solid black;
+            margin: 10px auto;
+        }
+        .normal{
+            
+            width: 240px;
+            margin: 20px;
+        }
+        #main{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+        }
+        .new{
+            width: 230px;
+            height: 310px;
+            border: 1px solid black;
+            margin: 20px;
+            padding: 10px;
+            box-shadow: 0 0 4px 0 rgba(55,55,55, .3);
+        }
+        li{
+            list-style-type: none;
+            margin: 10px auto;
+            font-size: 17px;
+        }
+        img{
+            width: 230px;
+            height: 150px;
+        }
+        input{
+
+            margin: 10px;
+            border: 2px solid black;
+            border-radius: 2px;
+            padding: 5px 25px 5px 3px;
+
+        }
+        input::placeholder{
+            color: black;
+            font-size: 15px;
+            
+        }
+        input[type = 'submit']{
+            padding: 5px 10px;
+            font-size: 16px;
+            color: limegreen;
+            background-color: white;
+            transition: ease-in-out font-size .1s;
+        }
+        input[type = 'submit']:hover{
+            background-color: aqua;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="normal">
+          <form id="form" onsubmit="return false">
+              <input type="text" name="Name" id="Name" placeholder="Name">
+              <input type="number" name="age" id="age" placeholder="Age">
+              <input type="text" name="city" id="city" placeholder="City">
+              <input type="mobile" name="mobile" id="mobile" minlength="10" maxlength="10" placeholder="Contact-Number">
+              <input type="text" name="img-url" id="img-url" placeholder="Image-Url(optional)">
+              <input type="submit"name="submit" id="submit">
+         </form>
+        </div>
+        <div id="main">
+
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    document.getElementById('submit').addEventListener('click',create)
+
+    function create(){
+
+        var form = document.getElementById('form')
+        var div = document.createElement('div')
+        var list = document.getElementById('main')
+        ;
+        if(form[3].value.length < 10)
+           return
+        
+        var x = Math.floor(Math.random() * 1000)
+        if(form[4].value != '')
+           {
+               div.innerHTML += `<img src="${form[4].value}" alt="NO Image Available">`
+
+           }
+        if(form[4].value == '')
+           {
+               div.style.height = '160px'
+               div.style.textAlign = 'center'
+               
+           }
+           
+        for(var i = 0; i < form.length - 2; i++)
+           {
+               div.innerHTML += `<li>${form[i].value}</li>`
+           }
+           div.innerHTML += `<button style='margin-right: 101px' onclick=remove(${x})>Remove</button>
+                             <button onclick=update(${x})>Update</button>`
+           div.setAttribute('class', 'new')
+           div.setAttribute('id',`${x}`)
+           list.appendChild(div)
+           
+        
+    }
+    function remove(id){
+        var div = document.getElementById(id)
+        div.remove()
+    }
+    function update(id){
+        var div = document.getElementById(id)
+        var child = div.querySelector('li')
+        var new_price = prompt('Enter New Name')
+        if(new_price == null)
+           return
+        console.log('new_price:', new_price)
+        
+        child.innerHTML = new_price
+    }
+</script>
